@@ -67,3 +67,6 @@ php_errors.log
 /misc/vagrant
 /.vagrant
 /plugins/.gitignore
+/docker-compose.override.yml
+*.env
+/etc/mysql/init-db/*.gz

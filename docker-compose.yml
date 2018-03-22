@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  matomo:
+    image: coedition/piwik
+    container_name: matomo
+    hostname: matomo
+    env_file: .env
+    volumes:
+      - ./etc/apache2/site.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./etc/php/custom.ini:/etc/php/7.1/apache2/conf.d/custom.ini
+      - ./etc/supervisord/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+      - ./:/var/www/html
+      - ./etc/run.sh:/run.sh
+    working_dir: /var/www/html
+    restart: unless-stopped
+    command: ['/run.sh']
+    depends_on:
+      - matomo-mysql
+      - matomo-redis
+
+  matomo-mysql:
+    image: mariadb:10.2
+    container_name: matomo-mysql
+    hostname: matomo-mysql
+    env_file: ./etc/mysql/.env
+    volumes:
+        - ./etc/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+        - ./etc/mysql/init-db:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+
+  matomo-redis:
+    image: redis
+    container_name: matomo-redis
+    hostname: matomo-redis
+    environment: { TERM: xterm }
+    restart: unless-stopped
+
