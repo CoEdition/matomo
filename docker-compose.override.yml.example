@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  matomo:
+    ports: ["80:80"]
+  matomo-redis:
+    ports: ["6379:6379"]
+  matomo-mysql:
+    ports: ["3306:3306"]
