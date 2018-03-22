@@ -1,0 +1,27 @@
+[mysqld]
+bind-address		= 0.0.0.0
+
+slow-query-log = On
+character-set-server = utf8
+innodb_flush_log_at_trx_commit = 0
+log-queries-not-using-indexes
+query_cache_type = 1
+long_query_time = 10
+slow_query_log_file = slow.log
+log-output = TABLE
+collation-server = utf8_general_ci
+default-storage-engine = InnoDB
+lower_case_table_names = 1
+log-slow-admin-statements
+interactive_timeout = 300
+wait_timeout = 300
+
+max_connections		= 50
+connect_timeout		= 5
+wait_timeout		= 45
+interactive_timeout = 60
+max_allowed_packet	= 256M
+max_connect_errors = 100000000
+
+## for magento to simulate our galera setup.
+auto_increment_increment=3
